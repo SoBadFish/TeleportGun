@@ -12,6 +12,7 @@ public class TeleportGunCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 
+        //开发中...
 
 
 
