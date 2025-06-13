@@ -26,7 +26,7 @@ public class PlayerPlayerPointForm extends CustomButtonForm {
 
     @Override
     public void callback(FormResponseSimple response) {
-        if(publicPoints.size() < response.getClickedButtonId()) {
+        if(publicPoints.size() > response.getClickedButtonId()) {
             Position pos = publicPoints.get(response.getClickedButtonId());
             //写入传送枪
             CompoundTag tag = item.getNamedTag();

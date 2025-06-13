@@ -18,6 +18,10 @@ import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.network.protocol.EntityEventPacket;
 import org.sobadfish.teleportgun.customitem.CustomTeleportBlueItem;
 
+/**
+ * 掉落物实体 只是沿用运动逻辑..
+ *
+ * */
 public class TeleportGunDropEntityItem extends Entity implements CustomEntity {
 
     public Item item;
