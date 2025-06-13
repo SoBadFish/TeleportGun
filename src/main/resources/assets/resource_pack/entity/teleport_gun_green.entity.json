@@ -1,0 +1,21 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "teleport_gun:green_entity_item",
+			"materials": {
+				"default": "entity_alphatest",
+				"invisible": ""
+			},
+			"textures": {
+				"default": "textures/entity/teleport_gun_model"
+			},
+			"geometry": {
+				"default": "geometry.teleport_gun_entity_item"
+			},
+			"render_controllers": [
+				"controller.render.item_default"
+			]
+		}
+	}
+}

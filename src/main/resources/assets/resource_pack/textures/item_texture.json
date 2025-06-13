@@ -1,0 +1,16 @@
+{
+	"resource_pack_name": "TeleportGun Item",
+	"texture_name":"atlas.items",
+	"texture_data":
+	{
+		"teleport_gun": {
+			"textures":"textures/items/teleport_gun.png"
+		},
+		"teleport_gun_blue": {
+			"textures":"textures/items/teleport_gun_blue.png"
+		},
+		"teleport_water": {
+			"textures":"textures/items/lp.png"
+		}
+	}
+}

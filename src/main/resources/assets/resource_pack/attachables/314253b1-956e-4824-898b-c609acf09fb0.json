@@ -1,0 +1,33 @@
+{
+    "format_version":"1.10.0",
+    "minecraft:attachable":{
+        "description":{
+            "identifier":"minecraft:teleport_gun",
+            "materials":{
+                "default":"entity_alphatest",
+                "enchanted":"entity_alphatest_glint"
+            },
+            "textures":{
+                "default":"textures/entity/teleport_gun_model",
+                "enchanted":"textures/misc/enchanted_item_glint"
+            },
+            "animations": {
+                "first_hold": "animation.teleport_gun.first",
+                "first_scale": "animation.teleport_gun.first_scale"
+            },
+            "scripts": {
+                "animate": [
+                    {
+                        "first_hold": "c.is_first_person"
+                    }
+                ]
+            },
+            "geometry":{
+                "default":"geometry.teleport_gun"
+            },
+            "render_controllers":[
+                "controller.render.item_default"
+            ]
+        }
+    }
+}

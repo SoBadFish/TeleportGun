@@ -1,0 +1,23 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.teleport_gun.first": {
+			"loop": true,
+			"bones": {
+				"gun_weapon": {
+					"rotation": [9.06273, 60.9925, -81.52179],
+					"position": [0, 1, 2],
+					"scale": 1.5
+				}
+			}
+		},
+		"animation.teleport_gun.first_scale": {
+			"loop": true,
+			"bones": {
+				"gun_weapon": {
+					"scale": 2
+				}
+			}
+		}
+	}
+}

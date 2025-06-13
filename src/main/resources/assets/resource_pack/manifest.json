@@ -1,0 +1,17 @@
+{
+   "format_version" : 1,
+   "header" : {
+      "description" : "§l§2传送枪专属材质包！",
+      "name" : "§l§6传送枪 §7材质",
+      "uuid" : "83e8b509-bd7c-4052-94fe-9ed8b63ca67c",
+      "version" : [ 0, 0, 20 ]
+   },
+   "modules" : [
+      {
+         "description" : "§l§2传送枪专属材质包！",
+         "type" : "resources",
+         "uuid" : "815987ff-6bb6-4738-a606-9ab848971a77",
+         "version" : [ 0, 0, 20 ]
+      }
+   ]
+}

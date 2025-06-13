@@ -1,0 +1,5 @@
+# 公共传送点 每个传送枪都会存在
+# 例如
+# public-teleport-point:
+#   "名称": "x:y:z:world
+public-teleport-point: {}
