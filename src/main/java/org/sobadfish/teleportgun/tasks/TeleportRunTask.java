@@ -15,6 +15,8 @@ import cn.nukkit.math.SimpleAxisAlignedBB;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.scheduler.PluginTask;
 import org.sobadfish.teleportgun.TeleportGunMainClass;
+import org.sobadfish.teleportgun.customitem.BaseTeleportGunItem;
+import org.sobadfish.teleportgun.entitys.TeleportGunDropEntityItem;
 import org.sobadfish.teleportgun.items.TeleportItem;
 
 import java.util.*;
@@ -62,7 +64,9 @@ public class TeleportRunTask extends PluginTask<TeleportGunMainClass> {
         );
 
         for (Entity entity : level.getNearbyEntities(box, null)) {
-            if(entity instanceof EntityItem || entity instanceof EntityWalking || entity instanceof Player) {
+            if(entity instanceof EntityItem || entity instanceof EntityWalking || entity instanceof Player
+            || entity instanceof TeleportGunDropEntityItem
+            ) {
                 UUID id = entity.getUniqueId();
                 if (!from.equals(owner.teleportedEntities.get(id))) {
                     //先检测地图是否加载 之后检查区块是否加载
