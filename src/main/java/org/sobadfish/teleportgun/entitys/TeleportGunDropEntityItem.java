@@ -181,6 +181,7 @@ public class TeleportGunDropEntityItem extends Entity implements CustomEntity {
                 } else {
                     boolean hasUpdate = this.entityBaseTick(tickDiff);
                     if (this.isAlive()) {
+                        age = 0;
                         if (this.pickupDelay > 0 && this.pickupDelay < 32767) {
                             this.pickupDelay -= tickDiff;
                             if (this.pickupDelay < 0) {
@@ -188,34 +189,6 @@ public class TeleportGunDropEntityItem extends Entity implements CustomEntity {
                             }
                         }
 
-                        if (this.age > 6000) {
-                            this.close();
-                            return true;
-
-                        }
-
-                        if (this.age % 200 == 0 && this.onGround && this.item != null && this.item.getCount() < this.item.getMaxStackSize()) {
-                            Entity[] e = this.getLevel().getNearbyEntities(this.getBoundingBox().grow(1.0D, 1.0D, 1.0D), this, false);
-
-                            for (Entity entity : e) {
-                                if (entity instanceof TeleportGunDropEntityItem && !entity.closed && entity.isAlive()) {
-                                    Item closeItem = ((TeleportGunDropEntityItem) entity).item;
-                                    if (closeItem.equals(this.item, true, true) && entity.isOnGround()) {
-                                        int newAmount = this.item.getCount() + closeItem.getCount();
-                                        if (newAmount <= this.item.getMaxStackSize()) {
-                                            closeItem.setCount(0);
-                                            entity.close();
-                                            this.item.setCount(newAmount);
-                                            EntityEventPacket packet = new EntityEventPacket();
-                                            packet.eid = this.getId();
-                                            packet.data = newAmount;
-                                            packet.event = 69;
-                                            Server.broadcastPacket(this.getViewers().values(), packet);
-                                        }
-                                    }
-                                }
-                            }
-                        }
 
                         this.updateLiquidMovement();
                         if (this.checkObstruction(this.x, this.y, this.z)) {
@@ -275,7 +248,6 @@ public class TeleportGunDropEntityItem extends Entity implements CustomEntity {
         if (this.item != null) {
             this.namedTag.putCompound("Item", NBTIO.putItemHelper(this.item, -1));
             this.namedTag.putShort("Health", (int)this.getHealth());
-            this.namedTag.putShort("Age", this.age);
             this.namedTag.putShort("PickupDelay", this.pickupDelay);
             if (this.owner != null) {
                 this.namedTag.putString("Owner", this.owner);
