@@ -65,7 +65,7 @@ public class PlayerAdminAddTeleportSettingForm extends CustomInputForm {
             if(tag == null){
                 tag = new CompoundTag();
             }
-            ListTag<StringTag> positions = new ListTag<>(ColumnManager.TELEPORT_LIST_TAG);
+            ListTag<StringTag> positions = new ListTag<>();
             if(tag.contains(ColumnManager.TELEPORT_LIST_TAG)){
                 positions = tag.getList(ColumnManager.TELEPORT_LIST_TAG,StringTag.class);
             }

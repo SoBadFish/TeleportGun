@@ -308,18 +308,18 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
 
         }
     }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onEntitySpawn(EntityTeleportEvent event){
-        //传送门终点不允许其他插件更改
-        if(teleportedEntities.containsKey(event.getEntity().getUniqueId())){
-            //检测传送点
-            Position end = teleportedEntities.get(event.getEntity().getUniqueId());
-            if(!end.equals(event.getTo())){
-                //传送到了
-                event.setTo(teleportedEntities.get(event.getEntity().getUniqueId()).getLocation());
-            }
-        }
-    }
+//
+//    @EventHandler(priority = EventPriority.MONITOR)
+//    public void onEntitySpawn(EntityTeleportEvent event){
+//        //传送门终点不允许其他插件更改
+//        if(teleportedEntities.containsKey(event.getEntity().getUniqueId())){
+//            //检测传送点
+//            Position end = teleportedEntities.get(event.getEntity().getUniqueId());
+//            if(!end.equals(event.getTo())){
+//                //传送到了
+//                event.setTo(teleportedEntities.get(event.getEntity().getUniqueId()).getLocation());
+//            }
+//        }
+//    }
 
 }

@@ -18,6 +18,7 @@ import org.sobadfish.teleportgun.TeleportGunMainClass;
 import org.sobadfish.teleportgun.customitem.BaseTeleportGunItem;
 import org.sobadfish.teleportgun.entitys.TeleportGunDropEntityItem;
 import org.sobadfish.teleportgun.items.TeleportItem;
+import org.sobadfish.teleportgun.utils.GenerateParticleUtils;
 
 import java.util.*;
 
@@ -77,9 +78,30 @@ public class TeleportRunTask extends PluginTask<TeleportGunMainClass> {
                     if(!level1.isChunkLoaded(to.getChunkX(),to.getChunkZ())){
                         level1.loadChunk(to.getChunkX(),to.getChunkZ());
                     }
+                    if(entity instanceof Player player){
 
-                    entity.teleport(to.getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
-                    owner.teleportedEntities.put(id, to);
+                        PlayerTeleportEvent event = new PlayerTeleportEvent(player
+                                , from.getLocation()
+                                , to.getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+                        Server.getInstance().getPluginManager().callEvent(event);
+                        if(event.isCancelled()){
+                            //被弹飞...
+                            entity.setMotion(new Vector3(
+                                    entity.motionX * -1,
+                                    entity.motionY * -1,
+                                    entity.motionZ * -1)
+                            );
+                            continue;
+                        }
+                    }
+                    GenerateParticleUtils.addDelayTask(new PluginTask<TeleportGunMainClass>(TeleportGunMainClass.INSTANCE) {
+                        @Override
+                        public void onRun(int currentTick) {
+                            owner.teleportedEntities.put(id, to);
+                            entity.teleport(to.getLocation(), null);
+                        }
+                    },2);
+
                 }
             }
         }

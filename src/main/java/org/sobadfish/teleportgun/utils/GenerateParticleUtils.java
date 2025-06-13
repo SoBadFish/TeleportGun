@@ -9,6 +9,8 @@ import cn.nukkit.level.Position;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.network.protocol.SpawnParticleEffectPacket;
+import cn.nukkit.scheduler.PluginTask;
+import org.sobadfish.teleportgun.TeleportGunMainClass;
 
 public class GenerateParticleUtils {
 
@@ -53,11 +55,15 @@ public class GenerateParticleUtils {
 
     public static Position asPosition(String location) {
         String[] sl = location.split(":");
-        if(sl.length != 4) return null;
+        if(sl.length <= 3 ) return null;
         return new Position(
                 Double.parseDouble(sl[0]),
                 Double.parseDouble(sl[1]),
                 Double.parseDouble(sl[2]),
                 Server.getInstance().getLevelByName(sl[3]));
+    }
+
+    public static void addDelayTask(PluginTask<TeleportGunMainClass> task, int delay) {
+        Server.getInstance().getScheduler().scheduleDelayedTask(TeleportGunMainClass.INSTANCE, task, delay);
     }
 }
