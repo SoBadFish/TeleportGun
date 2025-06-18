@@ -1,7 +1,6 @@
 package org.sobadfish.teleportgun;
 
 import cn.nukkit.Player;
-import cn.nukkit.Server;
 import cn.nukkit.block.Block;
 import cn.nukkit.entity.EntityHuman;
 import cn.nukkit.entity.custom.EntityManager;
@@ -9,7 +8,6 @@ import cn.nukkit.entity.item.EntityItem;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
-import cn.nukkit.event.entity.EntityTeleportEvent;
 import cn.nukkit.event.entity.ItemSpawnEvent;
 import cn.nukkit.event.inventory.InventoryTransactionEvent;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
@@ -253,6 +251,10 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
                 } catch (ClassCastException e) {
                     System.err.println("表单响应类型不匹配: " + e.getMessage());
                 }
+                if(customForm.isCanRemove()){
+                    formManager.removeForm(player.getName());
+                }
+//
             }
         }
 

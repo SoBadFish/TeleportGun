@@ -57,4 +57,9 @@ public class PlayerTeleportModelChoseForm extends CustomButtonForm {
 
 
     }
+
+    @Override
+    public boolean isCanRemove() {
+        return true;
+    }
 }

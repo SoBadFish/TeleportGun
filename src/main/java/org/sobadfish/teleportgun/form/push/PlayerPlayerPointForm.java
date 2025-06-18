@@ -54,4 +54,9 @@ public class PlayerPlayerPointForm extends CustomButtonForm {
         }
 
     }
+
+    @Override
+    public boolean isCanRemove() {
+        return true;
+    }
 }

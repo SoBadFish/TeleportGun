@@ -48,4 +48,9 @@ public class PlayerAdminTeleportMoreSettingForm extends CustomButtonForm {
         addButton(new ElementButton("添加传送枪传送点",new ElementButtonImageData("path","textures/particle/teleport_door_blue")));
 
     }
+
+    @Override
+    public boolean isCanRemove() {
+        return false;
+    }
 }

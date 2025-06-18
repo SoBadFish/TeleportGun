@@ -9,7 +9,6 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import org.sobadfish.teleportgun.TeleportGunMainClass;
 import org.sobadfish.teleportgun.form.CustomInputForm;
 import org.sobadfish.teleportgun.manager.ColumnManager;
-import org.sobadfish.teleportgun.utils.GenerateParticleUtils;
 
 public class PlayerAdminTeleportSettingForm extends CustomInputForm {
 
@@ -44,5 +43,10 @@ public class PlayerAdminTeleportSettingForm extends CustomInputForm {
 
         addElement(new ElementLabel("当前页为传送枪配置选项 \n* 可设置玩家是否可用传送枪打开另一个玩家的坐标点\n* 可允许玩家自行设置传送点坐标\n* 可设置玩家设定传送点坐标数量"));
         addElement(new ElementToggle("是否允许玩家传送", enableT));
+    }
+
+    @Override
+    public boolean isCanRemove() {
+        return true;
     }
 }

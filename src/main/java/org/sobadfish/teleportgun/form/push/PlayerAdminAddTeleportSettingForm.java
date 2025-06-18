@@ -17,8 +17,6 @@ import org.sobadfish.teleportgun.form.CustomInputForm;
 import org.sobadfish.teleportgun.manager.ColumnManager;
 import org.sobadfish.teleportgun.manager.ConfigManager;
 
-import java.util.Map;
-
 /**
  * 此页面为管理员的专属添加页
  * */
@@ -113,5 +111,10 @@ public class PlayerAdminAddTeleportSettingForm extends CustomInputForm {
 
 
 
+    }
+
+    @Override
+    public boolean isCanRemove() {
+        return true;
     }
 }

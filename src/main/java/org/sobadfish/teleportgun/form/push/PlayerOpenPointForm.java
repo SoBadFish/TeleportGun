@@ -77,4 +77,9 @@ public class PlayerOpenPointForm extends CustomButtonForm {
         }
 
     }
+
+    @Override
+    public boolean isCanRemove() {
+        return true;
+    }
 }
