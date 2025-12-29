@@ -20,13 +20,16 @@ public class PlayerAdminTeleportSettingForm extends CustomInputForm {
     public void callback(FormResponseCustom response) {
         boolean togger = response.getToggleResponse(1);
         //写入传送枪
-        CompoundTag tag = item.getNamedTag();
+        Item iclone = item.clone();
+        CompoundTag tag = iclone.getNamedTag();
+
         if(tag == null){
             tag = new CompoundTag();
         }
         tag.putBoolean(ColumnManager.ENABLE_PLAYER, togger);
-        item.setNamedTag(tag);
-        getPlayerInfo().getInventory().setItemInHand(item);
+        iclone.setNamedTag(tag);
+        getPlayerInfo().getInventory().removeItem(item);
+        getPlayerInfo().getInventory().addItem(iclone);
         TeleportGunMainClass.sendMessageToObject("&a传送枪设置成功",getPlayerInfo());
     }
 

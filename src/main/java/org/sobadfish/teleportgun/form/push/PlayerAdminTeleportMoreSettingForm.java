@@ -13,8 +13,6 @@ import org.sobadfish.teleportgun.form.CustomButtonForm;
  * */
 public class PlayerAdminTeleportMoreSettingForm extends CustomButtonForm {
 
-
-
     public PlayerAdminTeleportMoreSettingForm(String content, Player playerInfo,Item item) {
         super("传送枪配置--调整传送枪参数", content, playerInfo,item);
     }
@@ -35,10 +33,14 @@ public class PlayerAdminTeleportMoreSettingForm extends CustomButtonForm {
                 PlayerAdminAddTeleportSettingForm form2 = new PlayerAdminAddTeleportSettingForm("调整传送枪参数--添加传送枪传送点", playerInfo, item, false);
                 TeleportGunMainClass.INSTANCE.formManager.addForm(playerInfo, form2);
             }
+            case 3 -> {
+                // 公共传送点删除
+                PlayerAdminRemoveTeleportSettingForm form3 = new PlayerAdminRemoveTeleportSettingForm("调整传送枪参数--删除公共传送点", playerInfo, item, true);
+                TeleportGunMainClass.INSTANCE.formManager.addForm(playerInfo, form3);
+            }
             default -> {
             }
         }
-
     }
 
     @Override
@@ -46,7 +48,8 @@ public class PlayerAdminTeleportMoreSettingForm extends CustomButtonForm {
         addButton(new ElementButton("传送枪配置",new ElementButtonImageData("path","textures/items/teleport_gun")));
         addButton(new ElementButton("添加公共传送点",new ElementButtonImageData("path","textures/particle/teleport_door")));
         addButton(new ElementButton("添加传送枪传送点",new ElementButtonImageData("path","textures/particle/teleport_door_blue")));
-
+        // 添加删除公共传送点按钮
+        addButton(new ElementButton("删除公共传送点",new ElementButtonImageData("path","textures/ui/cancel")));
     }
 
     @Override

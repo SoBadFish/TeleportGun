@@ -3,3 +3,10 @@
 # public-teleport-point:
 #   "名称": "x:y:z:world
 public-teleport-point: {}
+
+# 禁止设置传送点的世界
+ban-set-point-world: []
+
+# minecraft:teleport_gun 才会加载的传送点
+public-teleport-green-point: {}
+

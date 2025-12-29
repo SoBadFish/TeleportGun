@@ -10,6 +10,7 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.nbt.tag.StringTag;
 import org.sobadfish.teleportgun.TeleportGunMainClass;
+import org.sobadfish.teleportgun.customitem.CustomTeleportItem;
 import org.sobadfish.teleportgun.form.CustomButtonForm;
 import org.sobadfish.teleportgun.manager.ColumnManager;
 import org.sobadfish.teleportgun.utils.GenerateParticleUtils;
@@ -34,13 +35,15 @@ public class PlayerOpenPointForm extends CustomButtonForm {
         if(publicPoints.size() > response.getClickedButtonId()) {
             Position pos = publicPoints.get(response.getClickedButtonId());
             //写入传送枪
-            CompoundTag tag = item.getNamedTag();
+            Item iclone = item.clone();
+            CompoundTag tag = iclone.getNamedTag();
             if(tag == null){
                 tag = new CompoundTag();
             }
             tag.putString(ColumnManager.TELEPORT_LOCATION,GenerateParticleUtils.asLocation(pos));
-            item.setNamedTag(tag);
-            getPlayerInfo().getInventory().setItemInHand(item);
+            iclone.setNamedTag(tag);
+            getPlayerInfo().getInventory().removeItem(item);
+            getPlayerInfo().getInventory().addItem(iclone);
             TeleportGunMainClass.sendMessageToObject("&a成功设定传送点 "+response.getClickedButton().getText(),getPlayerInfo());
 
         }
@@ -54,6 +57,12 @@ public class PlayerOpenPointForm extends CustomButtonForm {
         for(Map.Entry<String,Position> positionEntry: TeleportGunMainClass.INSTANCE.configManager.getAllPosition().entrySet()){
             addButton(new ElementButton(positionEntry.getKey(),new ElementButtonImageData("path","textures/particle/teleport_door")));
             publicPoints.add(positionEntry.getValue());
+        }
+        if(item instanceof CustomTeleportItem){
+            for(Map.Entry<String,Position> positionEntry: TeleportGunMainClass.INSTANCE.configManager.getGreenAllPosition().entrySet()){
+                addButton(new ElementButton(positionEntry.getKey(),new ElementButtonImageData("path","textures/particle/teleport_door")));
+                publicPoints.add(positionEntry.getValue());
+            }
         }
         //之后是传送枪保存的
         if(item.hasCompoundTag()){

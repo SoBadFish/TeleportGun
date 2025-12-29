@@ -63,8 +63,6 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
         EntityManager.get().registerDefinition(TeleportGunDropEntityItem.DEF_GREEN);
     }
 
-
-
     @Override
     public void onEnable() {
         INSTANCE = this;
@@ -75,7 +73,6 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
         Item.registerCustomItem(CustomTeleportItem.class);
         Item.registerCustomItem(CustomTeleportBlueItem.class);
         Item.registerCustomItem(CustomTeleportWaterItem.class);
-        //修改lore后 再扔到创造背包
         if(formManager == null){
             formManager = new FormManager();
         }else{
@@ -110,15 +107,13 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
             Item item = event.getItem();
             if(event.getItem() instanceof BaseTeleportGunItem){
                 if(event.getPlayer().isSneaking()){
-                    //TODO 打开设置页面
+                    item.getNamedTag().putString("UUID",event.getPlayer().getUniqueId().toString());
                     openSettingPanel(event.getPlayer(),event.getItem());
-
                     event.setCancelled(true);
                     return;
                 }
                 //打开传送门
                 if(item.getDamage() >= item.getMaxDurability()){
-                    //TODO 传送液不足
                     TeleportGunMainClass.sendMessageToObject("&c没有足够的传送液",event.getPlayer());
                     return;
                 }
@@ -151,9 +146,17 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
             TeleportGunMainClass.sendMessageToObject("&c未设定传送地点 可潜行右键传送枪对设定地点进行传送",player);
             return false;
         }
+
         Location location = generateEndLocation(teleportLocation);
         if(location == null){
             TeleportGunMainClass.sendMessageToObject("&c传送地点不存在",player);
+            return false;
+        }
+
+        // 关键：判断目标世界是否在禁止设置传送点列表中（使用文件夹名判断）
+        String targetWorldFolderName = location.getLevel().getFolderName();
+        if(TeleportGunMainClass.INSTANCE.configManager.isBanSetPointWorld(targetWorldFolderName) && !player.isOp()){
+            TeleportGunMainClass.sendMessageToObject("&c禁止传送到世界 [" + targetWorldFolderName + "]", player);
             return false;
         }
 
@@ -175,7 +178,6 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
             GenerateParticleUtils.addDoorParticleXy(player.getLevel(),tpt,item instanceof CustomTeleportBlueItem,isXy);
 
             //还要在终点开启一个传送门
-
             GenerateParticleUtils.addDoorParticleXy(location.level,location.add(0,1),item instanceof CustomTeleportBlueItem,isXy);
 
             TeleportGunMainClass.INSTANCE.teleportItems.add(new TeleportItem(tpt,location));
@@ -199,7 +201,6 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
     }
 
     private static Location generateEndLocation(String teleportLocation) {
-
         Position position = GenerateParticleUtils.asPosition(teleportLocation);
         if(position == null){
             return null;
@@ -232,7 +233,6 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
         sendMessageToObject(msg,null);
     }
 
-
     @EventHandler
     public void onFormListener(PlayerFormRespondedEvent event){
         if (event.wasClosed()) {
@@ -254,7 +254,6 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
                 if(customForm.isCanRemove()){
                     formManager.removeForm(player.getName());
                 }
-//
             }
         }
 
@@ -272,19 +271,51 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
                         Item hand = player.getCursorInventory().getItem(0);
                         if(hand instanceof CustomTeleportWaterItem){
                             event.setCancelled();
-                            Item cl = i.clone();
-                            player.getCursorInventory().removeItem(hand);
-                            player.getInventory().removeItem(i);
-                            cl.setDamage(0);
-                            int index = getItemIndex(player.getInventory(),i);
-                            if(index != -1){
-                                player.getInventory().setItem(index,cl);
-                            }else{
-                                player.getInventory().addItem(cl);
+                            if(i.getDamage() == 0){
+                                sendMessageToObject("&c传送液已满",player);
+                                return;
                             }
+                            Item rm = i.clone();
+                            Item cl = i.clone();
+                            cl.setCount(1);
+                            hand.setCount(hand.getCount() - 1);
+                            player.getCursorInventory().setItem(0,hand);
+                            player.getInventory().removeItem(rm);
+                            cl.setDamage(0);
+//                            int index = getItemIndex(player.getInventory(),i);
+                            player.getInventory().addItem(cl);
                             sendMessageToObject("&a传送液已注入",player);
+                            return;
 
                         }
+                        if(action.getTargetItem() instanceof CustomTeleportWaterItem){
+                            hand = action.getTargetItem();
+                            event.setCancelled();
+                            if(i.getDamage() == 0){
+                                sendMessageToObject("&c传送液已满",player);
+                                return;
+                            }
+                            Item cl = i.clone();
+//                            cl.setCount(1);
+                            Item cl2 = hand.clone();
+                            cl2.setCount(1);
+
+//                            hand.setCount(hand.getCount() - 1);
+//                            player.getCursorInventory().setItem(0,hand);
+                            player.getInventory().removeItem(cl2);
+                            player.getInventory().removeItem(i);
+//
+//                            int index = getItemIndex(player.getInventory(),i);
+//                            if(index == -1){
+//
+//                            }
+                            cl.setDamage(0);
+                            player.getInventory().addItem(cl);
+                            sendMessageToObject("&a传送液已注入",player);
+                            return;
+
+                        }
+
                     }
                 }
             }
@@ -310,18 +341,4 @@ public class TeleportGunMainClass extends PluginBase implements Listener {
 
         }
     }
-//
-//    @EventHandler(priority = EventPriority.MONITOR)
-//    public void onEntitySpawn(EntityTeleportEvent event){
-//        //传送门终点不允许其他插件更改
-//        if(teleportedEntities.containsKey(event.getEntity().getUniqueId())){
-//            //检测传送点
-//            Position end = teleportedEntities.get(event.getEntity().getUniqueId());
-//            if(!end.equals(event.getTo())){
-//                //传送到了
-//                event.setTo(teleportedEntities.get(event.getEntity().getUniqueId()).getLocation());
-//            }
-//        }
-//    }
-
 }

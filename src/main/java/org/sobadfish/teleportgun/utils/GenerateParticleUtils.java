@@ -56,6 +56,8 @@ public class GenerateParticleUtils {
     public static Position asPosition(String location) {
         String[] sl = location.split(":");
         if(sl.length <= 3 ) return null;
+        Level level =   Server.getInstance().getLevelByName(sl[3]);
+        if(level == null) return null;
         return new Position(
                 Double.parseDouble(sl[0]),
                 Double.parseDouble(sl[1]),
@@ -66,4 +68,7 @@ public class GenerateParticleUtils {
     public static void addDelayTask(PluginTask<TeleportGunMainClass> task, int delay) {
         Server.getInstance().getScheduler().scheduleDelayedTask(TeleportGunMainClass.INSTANCE, task, delay);
     }
+
+
+
 }

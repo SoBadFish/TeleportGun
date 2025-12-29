@@ -20,12 +20,12 @@ import org.sobadfish.teleportgun.manager.ConfigManager;
 /**
  * 此页面为管理员的专属添加页
  * */
-public class PlayerAdminAddTeleportSettingForm extends CustomInputForm {
+public class PlayerUserAddTeleportSettingForm extends CustomInputForm {
 
 
     public boolean isPublic;
 
-    public PlayerAdminAddTeleportSettingForm(String title, Player playerInfo, Item item, boolean isPublic) {
+    public PlayerUserAddTeleportSettingForm(String title, Player playerInfo, Item item, boolean isPublic) {
         super(title, playerInfo,item);
         this.isPublic = isPublic;
 
