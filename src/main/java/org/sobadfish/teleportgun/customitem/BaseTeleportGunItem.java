@@ -5,9 +5,9 @@ import cn.nukkit.block.Block;
 import cn.nukkit.item.ItemDurable;
 import cn.nukkit.item.customitem.CustomItemDefinition;
 import cn.nukkit.item.customitem.ItemCustomTool;
-import cn.nukkit.item.customitem.data.ItemCreativeCategory;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.BlockFace;
+import cn.nukkit.network.protocol.types.inventory.creative.CreativeItemCategory;
 import org.sobadfish.teleportgun.TeleportGunMainClass;
 
 public class BaseTeleportGunItem extends ItemCustomTool  implements ItemDurable {
@@ -22,7 +22,7 @@ public class BaseTeleportGunItem extends ItemCustomTool  implements ItemDurable 
 
 
     public CustomItemDefinition getDefinition() {
-        return CustomItemDefinition.toolBuilder(this, ItemCreativeCategory.ITEMS)
+        return CustomItemDefinition.toolBuilder(this, CreativeItemCategory.ITEMS)
                 .allowOffHand(false)
                 .build();
     }

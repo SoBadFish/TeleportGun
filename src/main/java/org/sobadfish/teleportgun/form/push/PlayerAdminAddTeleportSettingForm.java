@@ -41,11 +41,7 @@ public class PlayerAdminAddTeleportSettingForm extends CustomInputForm {
         if(response.getResponses().size() > 5){
             levelName = response.getInputResponse(5);
         }
-        //坐标是整数
-        if(!x.matches("-?\\d+") || !y.matches("-?\\d+") || !z.matches("-?\\d+")){
-            TeleportGunMainClass.sendMessageToObject("纬度坐标输入无效",getPlayerInfo());
-            return;
-        }
+
         if(name.trim().isEmpty()){
             name = "默认传送点";
         }

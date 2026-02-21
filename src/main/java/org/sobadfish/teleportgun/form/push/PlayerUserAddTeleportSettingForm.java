@@ -34,18 +34,18 @@ public class PlayerUserAddTeleportSettingForm extends CustomInputForm {
     @Override
     public void callback(FormResponseCustom response) {
         String name = response.getInputResponse(1);
-        String x = response.getInputResponse(2);
-        String y = response.getInputResponse(3);
-        String z = response.getInputResponse(4);
+        String x = playerInfo.x+"";
+        String y = playerInfo.y+"";
+        String z = playerInfo.z+"";
         String levelName = getPlayerInfo().level.getFolderName(); // 使用文件夹名
-        if(response.getResponses().size() > 5){
-            levelName = response.getInputResponse(5);
-        }
+//        if(response.getResponses().size() > 5){
+//            levelName = response.getInputResponse(5);
+//        }
         //坐标是整数
-        if(!x.matches("-?\\d+") || !y.matches("-?\\d+") || !z.matches("-?\\d+")){
-            TeleportGunMainClass.sendMessageToObject("纬度坐标输入无效",getPlayerInfo());
-            return;
-        }
+//        if(!x.matches("-?\\d+") || !y.matches("-?\\d+") || !z.matches("-?\\d+")){
+//            TeleportGunMainClass.sendMessageToObject("纬度坐标输入无效",getPlayerInfo());
+//            return;
+//        }
         if(name.trim().isEmpty()){
             name = "默认传送点";
         }
@@ -106,30 +106,29 @@ public class PlayerUserAddTeleportSettingForm extends CustomInputForm {
             banWorldTip.append("* 禁止设置传送点的世界：").append(String.join("、", configManager.getBanSetPointWorlds())).append("\n");
         }
 
-        String location = null;
-        String x = "";
-        String y = "";
-        String z = "";
-        String levelName = "";
-        Position spawn = getPlayerInfo().getPosition();
-        x = spawn.getFloorX()+"";
-        y = spawn.getFloorY()+"";
-        z = spawn.getFloorZ()+"";
-        levelName = spawn.getLevel().getFolderName(); // 使用文件夹名
+//        String location = null;
+//        String x = "";
+//        String y = "";
+//        String z = "";
+//        String levelName = "";
+//        Position spawn = getPlayerInfo().getPosition();
+//        x = spawn.getFloorX()+"";
+//        y = spawn.getFloorY()+"";
+//        z = spawn.getFloorZ()+"";
+//        levelName = spawn.getLevel().getFolderName(); // 使用文件夹名
 
         addElement(new ElementLabel("* 传送枪使用须知\n" +
                 banWorldTip + // 添加禁止世界提示
-                "1.使用此传送枪请先预设您要传送的纬度坐标\n" +
-                "2.每次传送将会消耗1个单位的传送液，传送液不足将无法开启传送门\n" +
-                "3.传送门开启后将维持5秒的时间，5秒后传送门会自动关闭\n" +
-                "4.若输入无效纬度将会在本纬度内传送"));
+                "1.每次传送将会消耗1个单位的传送液，传送液不足将无法开启传送门\n" +
+                "2.传送门开启后将维持5秒的时间，5秒后传送门会自动关闭\n" +
+                "3.当前设置会将 当前位置 设置为传送点"));
         addElement(new ElementInput("显示名称","请输入传送点名称","设定传送点" ));
-        addElement(new ElementInput("纬度坐标X","请输入纬度坐标X", x));
-        addElement(new ElementInput("纬度坐标Y","请输入纬度坐标Y", y));
-        addElement(new ElementInput("纬度坐标Z","请输入纬度坐标Z", z));
-        if(item instanceof CustomTeleportItem){
-            addElement(new ElementInput("地图名称","请输入世界文件夹名", levelName));
-        }
+//        addElement(new ElementInput("纬度坐标X","请输入纬度坐标X", x));
+//        addElement(new ElementInput("纬度坐标Y","请输入纬度坐标Y", y));
+//        addElement(new ElementInput("纬度坐标Z","请输入纬度坐标Z", z));
+//        if(item instanceof CustomTeleportItem){
+//            addElement(new ElementInput("地图名称","请输入世界文件夹名", levelName));
+//        }
     }
 
     @Override

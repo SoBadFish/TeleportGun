@@ -1,11 +1,5 @@
 package org.sobadfish.teleportgun.customitem;
 
-import cn.nukkit.item.customitem.CustomItemDefinition;
-import cn.nukkit.item.customitem.ItemCustom;
-import cn.nukkit.item.customitem.data.ItemCreativeCategory;
-import cn.nukkit.item.customitem.data.Offset;
-import cn.nukkit.item.customitem.data.RenderOffsets;
-
 public class CustomTeleportBlueItem extends BaseTeleportGunItem {
 
     public CustomTeleportBlueItem() {

@@ -3,9 +3,8 @@ package org.sobadfish.teleportgun.customitem;
 
 import cn.nukkit.item.customitem.CustomItemDefinition;
 import cn.nukkit.item.customitem.ItemCustom;
-import cn.nukkit.item.customitem.data.ItemCreativeCategory;
-import cn.nukkit.item.customitem.data.ItemCreativeGroup;
 import cn.nukkit.item.customitem.data.RenderOffsets;
+import cn.nukkit.network.protocol.types.inventory.creative.CreativeItemCategory;
 
 
 /**
@@ -28,8 +27,7 @@ public class CustomTeleportWaterItem extends ItemCustom {
     public CustomItemDefinition getDefinition() {
 
         return CustomItemDefinition
-                .simpleBuilder(this, ItemCreativeCategory.ITEMS)
-                .creativeGroup(ItemCreativeGroup.MISC_FOOD)
+                .simpleBuilder(this, CreativeItemCategory.ITEMS)
                 .handEquipped(true)
                 .renderOffsets(RenderOffsets.scaleOffset(scaleOffset()))
                 .build();
